@@ -10,7 +10,7 @@ fetch(url)
     .then(dataId => {
 
         let myDataId = dataId;
-        console.log(myDataId)
+        // console.log(myDataId)
 
         const imageKanap = document.querySelector(".item__img");
         const imgId = document.createElement("img");
@@ -52,28 +52,49 @@ fetch(url)
 
         btnAjouterPanier.addEventListener("click", () => {
 
-            const produit = {
+            const optionProduit = {
                 idProduit: productId,
                 quantiteProduit: +quantity.value, // Number(quantity.value), // JSON.parse(quantity.value),
                 couleur: colors.value
             };
 
-            if (
-                produit.quantiteProduit === 0 || produit.couleur === ""
-            ) {
-                alert("Indiquer au moins une quantitée et un couleur.")
-                return
-            };
+            //if (
+            //    produit.quantiteProduit === 0 || produit.couleur === ""
+            //) {
+            //    alert("Indiquer au moins une quantitée et un couleur.")
+            //    return
+            //};
 
-            console.log(produit);
+            // console.log(produit);
 
             // Création d'un tableau pour ranger tout les ajouts au panier :
 
-            const tableauProduit = localStorage.setItem("tableauProduit", JSON.stringify([]));
+            const a = "aaaa";
+            console.log(a)
+            console.log(Boolean(a))
+
+            const tableauProduit = JSON.parse(localStorage.getItem("produit"));
+
+            if (tableauProduit) {
+                tableauProduit.push(JSON.stringify(optionProduit));
+                localStorage.setItem("produit", JSON.stringify(tableauProduit));
+                console.log(tableauProduit);
+
+            } else {
+                let tableauProduit = [];
+                tableauProduit.push(JSON.stringify(optionProduit));
+                localStorage.setItem("produit", JSON.stringify(tableauProduit));
+                console.log(tableauProduit);
+
+            };
+
+
+
+
+
 
             // Ajout des produits dans mon tableau :
 
-            // const addProduit =
 
 
 
