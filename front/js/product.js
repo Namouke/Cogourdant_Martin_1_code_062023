@@ -52,11 +52,39 @@ fetch(url)
 
         btnAjouterPanier.addEventListener("click", () => {
 
-            const arrayProduit = [
-                idProduit = productId,
-                quantiteProduit = quantity.value,
-                couleur = colors.value
-            ];
+            const produit = {
+                idProduit: productId,
+                quantiteProduit: +quantity.value, // Number(quantity.value), // JSON.parse(quantity.value),
+                couleur: colors.value
+            };
+
+            if (
+                produit.quantiteProduit === 0 || produit.couleur === ""
+            ) {
+                alert("Indiquer au moins une quantitée et un couleur.")
+                return
+            };
+
+            // Etape 1 récuprer le tableau dans le localstorage, si pas de tableau le créer :
+
+            // Etape 2 Regarder dans le tableau si il y a déjà un produit avec la même couleur + ID 
+            // Si oui => modifier quantity
+            // Si non ajouter au tableau
+
+            // Etape 3 sauvegarder dans le localstorage.
+
+
+
+            // produit.push()
+
+
+
+
+            // Ajouter un élément dans un tableau
+
+            
+
+            window.arrayProduit = arrayProduit;
 
             console.log(arrayProduit);
 
