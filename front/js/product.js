@@ -65,7 +65,20 @@ fetch(url)
                 return
             };
 
-            // Etape 1 récuprer le tableau dans le localstorage, si pas de tableau le créer :
+            console.log(produit);
+
+            // Création d'un tableau pour ranger tout les ajouts au panier :
+
+            const tableauProduit = localStorage.setItem("tableauProduit", JSON.stringify([]));
+
+            // Ajout des produits dans mon tableau :
+
+            // const addProduit =
+
+
+
+
+
 
             // Etape 2 Regarder dans le tableau si il y a déjà un produit avec la même couleur + ID 
             // Si oui => modifier quantity
@@ -82,11 +95,6 @@ fetch(url)
 
             // Ajouter un élément dans un tableau
 
-            
-
-            window.arrayProduit = arrayProduit;
-
-            console.log(arrayProduit);
 
         });
 
