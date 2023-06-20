@@ -65,49 +65,49 @@ fetch(url)
             //    return
             //};
 
-            // console.log(produit);
+            // console.log(optionProduit);
 
-            // Création d'un tableau pour ranger tout les ajouts au panier :
+            // Création d'un tableau pour ranger tout les ajouts au panier 
 
-            const a = "aaaa";
-            console.log(a)
-            console.log(Boolean(a))
+            if (
+                localStorage.getItem("tableau") === null
+            ) {
+                localStorage.setItem("tableau", JSON.stringify([]));
 
-            const tableauProduit = JSON.parse(localStorage.getItem("produit"));
-
-            if (tableauProduit) {
-                tableauProduit.push(JSON.stringify(optionProduit));
-                localStorage.setItem("produit", JSON.stringify(tableauProduit));
-                console.log(tableauProduit);
-
-            } else {
-                let tableauProduit = [];
-                tableauProduit.push(JSON.stringify(optionProduit));
-                localStorage.setItem("produit", JSON.stringify(tableauProduit));
-                console.log(tableauProduit);
-
-            };
-
-
-
-
-
+            }
 
             // Ajout des produits dans mon tableau :
 
 
-
-
-
+            const tableau = JSON.parse(localStorage.getItem("tableau"));
 
 
             // Etape 2 Regarder dans le tableau si il y a déjà un produit avec la même couleur + ID 
-            // Si oui => modifier quantity
-            // Si non ajouter au tableau
+
+            let dejaModifier = false;
+
+            for (let produitPanier of tableau) {
+                if (
+                    // Si oui => modifier quantity
+                    produitPanier.idProduit === optionProduit.idProduit &&
+                    produitPanier.couleur === optionProduit.couleur
+                ) {
+                    produitPanier.quantiteProduit += optionProduit.quantiteProduit
+                    dejaModifier = true
+                } 
+            }
+
+            if (
+                dejaModifier === false
+            ) {
+                tableau.push(optionProduit)
+            }
+
+            console.log(tableau)
 
             // Etape 3 sauvegarder dans le localstorage.
 
-
+            localStorage.setItem("tableau",JSON.stringify(tableau));
 
             // produit.push()
 
