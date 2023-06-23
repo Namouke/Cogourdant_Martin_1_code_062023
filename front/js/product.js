@@ -58,14 +58,6 @@ fetch(url)
                 couleur: colors.value
             };
 
-            //if (
-            //    produit.quantiteProduit === 0 || produit.couleur === ""
-            //) {
-            //    alert("Indiquer au moins une quantitée et un couleur.")
-            //    return
-            //};
-
-            // console.log(optionProduit);
 
             // Création d'un tableau pour ranger tout les ajouts au panier 
 
@@ -94,7 +86,7 @@ fetch(url)
                 ) {
                     produitPanier.quantiteProduit += optionProduit.quantiteProduit
                     dejaModifier = true
-                } 
+                }
             }
 
             if (
@@ -107,7 +99,7 @@ fetch(url)
 
             // Etape 3 sauvegarder dans le localstorage.
 
-            localStorage.setItem("tableau",JSON.stringify(tableau));
+            localStorage.setItem("tableau", JSON.stringify(tableau));
 
             // produit.push()
 
