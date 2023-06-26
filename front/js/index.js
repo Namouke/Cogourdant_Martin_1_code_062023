@@ -22,10 +22,11 @@ fetch(url) // Adresse donner par la documentation de Bilal
 
       const sectionItem = document.querySelector("#items");
       sectionItem.appendChild(a);
-      console.log(sectionItem)
+      //console.log(sectionItem)
 
       const article = document.createElement('article');
       a.appendChild(article);
+      console.log(article)
 
       const img = document.createElement('img');
       img.src = imageUrl;
