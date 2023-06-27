@@ -15,7 +15,7 @@ const panier = JSON.parse(localStorage.getItem("tableau"));
 //console.log(produit)
 //}
 
-let prixTotal = 0;
+// let prixTotal = 0;
 
 for (let i = 0; i < panier.length; i++) {
 
@@ -32,7 +32,9 @@ for (let i = 0; i < panier.length; i++) {
             // création de l'arcticle //
             const article = document.createElement("article");
             article.className = "cart__item";
-            console.log(article)
+            article.setAttribute("data-id", panierId);
+            article.setAttribute("data-color", panierCouleur);
+            // console.log(article)
 
             // image du produit //
             const cart__item__img = document.createElement("div");
@@ -42,8 +44,8 @@ for (let i = 0; i < panier.length; i++) {
 
             const img = document.createElement("img");
             img.src = data.imageUrl;
-            img.setAttribute(`alt`, data.altTxt)
-            cart__item__img.appendChild(img)
+            img.setAttribute(`alt`, data.altTxt);
+            cart__item__img.appendChild(img);
             // console.log(img)
 
             // contenu des produits //
@@ -91,8 +93,8 @@ for (let i = 0; i < panier.length; i++) {
             input.className = "itemQuantity";
             input.name = "itemQuantity";
             input.min = "1";
-            input.max = panierQuantite;
-            input.value = "1";
+            input.max = "100";
+            input.value = panierQuantite;
             cart__item__content__settings__quantity.appendChild(input);
 
             // div 2.2
@@ -111,15 +113,25 @@ for (let i = 0; i < panier.length; i++) {
             // console.log(section);
 
             // console.log(data)
+            
+           
 
         })
+
+    // Calcul des produit :
+
+    
+
     // console.log(panierId)
+
     //console.log(panier[i].idProduit)
+
+    // {idProduit: '*', quantiteProduit: *, couleur: '*'}
+
+    // altTxt: colors: description: imageUrl: name: price: _id:
 }
 
- // {idProduit: '*', quantiteProduit: *, couleur: '*'}
 
- // altTxt: "*" colors: description: imageUrl: name: price: _id:
 
 
 
