@@ -113,14 +113,32 @@ for (let i = 0; i < panier.length; i++) {
             // console.log(section);
 
             // console.log(data)
-            
-           
+
+            // Calcul des produit :
+
+            const panierQuantites = [];
+
+            for (let i = 0; i < panier.length; i++) {
+                const panierQuantite = panier[i].quantiteProduit;
+                panierQuantites.push(panierQuantite);
+            }
+
+            let sommePanier = 0;
+
+            for (let i = 0; i < panierQuantites.length; i++) {
+                sommePanier += panierQuantites[i];
+            }
+
+            console.log(sommePanier)
+            console.log(panierQuantites);
+
 
         })
 
-    // Calcul des produit :
 
-    
+
+
+
 
     // console.log(panierId)
 
