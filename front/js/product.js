@@ -10,7 +10,7 @@ fetch(url)
     .then(dataId => {
 
         let myDataId = dataId;
-        // console.log(myDataId)
+        console.log(myDataId)
 
         const imageKanap = document.querySelector(".item__img");
         const imgId = document.createElement("img");
@@ -55,7 +55,8 @@ fetch(url)
             const optionProduit = {
                 idProduit: productId,
                 quantiteProduit: +quantity.value, // Number(quantity.value), // JSON.parse(quantity.value),
-                couleur: colors.value
+                couleur: colors.value,
+                prix: dataId.price
             };
 
 
