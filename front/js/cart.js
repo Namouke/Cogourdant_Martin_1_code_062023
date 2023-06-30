@@ -2,46 +2,41 @@
 // Recupération des informations du localstorage :
 const panier = JSON.parse(localStorage.getItem("tableau"));
 
-// for (let i in panier) {
-//let panierId = panier[i].idProduit;
-//console.log(i)
-//}
-
-// for ( let produit of panier ) {
-//console.log(produit)
-//}
-
-// Mise en place d'une boucle pour mettre ses données en dynamique :
-
-// ANP 3 //
+// Mise en place de l'affichage des total de la page cart.html
 
 const totalQuantity = document.querySelector("#totalQuantity");
 const spanTotalQuantity = document.createElement("span");
 totalQuantity.appendChild(spanTotalQuantity);
 
 let sommePanier = 0;
-// ANP 3 //
 
-// APTA 3 //
 const totalPrice = document.querySelector("#totalPrice");
 const spanTotalPrice = document.createElement("span");
 totalPrice.appendChild(spanTotalPrice)
 
 let prixTotal = 0;
-// APTA 3 //
+
+// Mise en place d'une promise pour faire en sorte que tout sa déroule dans le bon sens
+
+let promise = Promise.resolve();
+
+// Mise en place d'une boucle pour mettre ses données en dynamique :
 
 for (let i = 0; i < panier.length; i++) {
 
     const panierId = panier[i].idProduit;
     const panierQuantite = panier[i].quantiteProduit;
     const panierCouleur = panier[i].couleur;
-    const panierPrix = panier[i].prix;
+
 
     const url = `http://localhost:3000/api/products/${panierId}`
 
-    fetch(url)
+    promise = promise.then(() => fetch(url))
         .then(res => res.json())
         .then(data => {
+
+            const panierPrix = data.price;
+
             // Mise en place du DOM avec les bonnes information :
 
             // création de l'arcticle //
@@ -129,89 +124,26 @@ for (let i = 0; i < panier.length; i++) {
 
             // console.log(data)
 
-            // Afficher le nombre de produit
-            // Etape 1 : Mettre les quantités dans un seul et même tableau :
+            // Calcul somme des produit et le total du prix du panier :
 
-            const panierQuantites = [];
-            for (let i = 0; i < panier.length; i++) {
-                const panierQuantite = panier[i].quantiteProduit;
-                panierQuantites.push(panierQuantite);
-                // console.log(panierQuantites)
-            };
-
-            // Etape 2 : En faire l'addition 
-
-            let sommePanier = 0;
-            for (let i = 0; i < panierQuantites.length; i++) {
-                sommePanier += panierQuantites[i];
-            };
-
-            // console.log(sommePanier)
-            // console.log(panierQuantites);
-
-            // Etape 3 : Mettre en dynamique
-            // Pour évité la création de plusieurs span il faut sortie de la boucle
-            // Etape 3 = // ANP 3 //
-
-            // Afficher le prix total des articles
-            // Etape 1 : Mettre les résultat de la multipication des articles
-
-            const tableauPrixArticle = [];
-            for (let i = 0; i < panier.length; i++) {
-                const sommeParArticle = panier[i].quantiteProduit * panier[i].prix;
-                tableauPrixArticle.push(sommeParArticle)
-                // console.log(sommeParArticle);
-            }
-            // console.log(tableauPrixArticle);
-
-            // Etape 2 : Faire l'addition des elements du nouveau tableau tableaPrixArticle
-
-            let prixTotalArticle = 0;
-            for (let i = 0; i < tableauPrixArticle.length; i++) {
-                prixTotalArticle += tableauPrixArticle[i];
-            }
-            //console.log(prixTotalArticle);
-
-            // Etape 3 : Mettre en dynamique
-            // Pour évité la création de plusieurs span il faut sortie de la boucle
-            // Etape 3 = // APTA 3 //
+            prixTotal += panierQuantite * panierPrix;
+            console.log(prixTotal)
+            sommePanier += panierQuantite;
 
         });
 
-    // ANP 3 //
-
-    sommePanier += panierQuantite;
-
-    // ANP 3 //
-
-    // APTA 3 //
-
-    prixTotal += panierQuantite * panierPrix;
-
-    // APTA 3 //
-
-
-
-    // console.log(panierId)
-
-    //console.log(panier[i].idProduit)
-
-    // {idProduit: '*', quantiteProduit: *, couleur: '*'}
-
-    // altTxt: colors: description: imageUrl: name: price: _id:
 }
 
-// ANP 3 //
+// Promise pour attendre la réponse des calcule du .then
 
-spanTotalQuantity.innerText = sommePanier;
+promise.then(() => {
+    spanTotalPrice.innerText = prixTotal;
+    spanTotalQuantity.innerText = sommePanier;
+})
 
-// ANP 3 //
 
-// APTA 3 //
 
-spanTotalPrice.innerText = prixTotal;
 
-// APTA 3 //
 
 
 
