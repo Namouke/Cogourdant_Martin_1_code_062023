@@ -56,7 +56,6 @@ fetch(url)
                 idProduit: productId,
                 quantiteProduit: +quantity.value, // Number(quantity.value), // JSON.parse(quantity.value),
                 couleur: colors.value,
-                prix: dataId.price
             };
 
 
@@ -103,9 +102,6 @@ fetch(url)
             localStorage.setItem("tableau", JSON.stringify(tableau));
 
             // produit.push()
-
-
-
 
             // Ajouter un élément dans un tableau
 

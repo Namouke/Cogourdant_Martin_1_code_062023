@@ -20,6 +20,56 @@ let prixTotal = 0;
 
 let promise = Promise.resolve();
 
+// Fonction pour supprimer un article du panier et du localStorage
+
+function supprimerArticle(idProduit) {
+
+    // Supprimer les données du localStorage
+    const panier = JSON.parse(localStorage.getItem("tableau"));
+    const index = panier.findIndex(item => item.idProduit === idProduit);
+    if (index !== -1) {
+        panier.splice(index, 1);
+        localStorage.setItem("tableau", JSON.stringify(panier));
+    }
+}
+
+// Gestionnaire d'événements de délégation pour les boutons de suppression
+
+const section = document.querySelector("#cart__items");
+section.addEventListener('click', (event) => {
+    if (event.target.classList.contains('deleteItem')) {
+        const article = event.target.closest('.cart__item');
+        const idProduit = article.dataset.id;
+        supprimerArticle(idProduit);
+        article.remove();
+    }
+});
+
+// Fonction pour mettre à jour la quantité d'un article dans le panier
+function mettreAJourQuantite(idProduit, nouvelleQuantite) {
+    // Rechercher l'article dans le panier
+    const article = panier.find(item => item.idProduit === idProduit);
+
+    // Mettre à jour la quantité de l'article
+    if (article) {
+        article.quantiteProduit = nouvelleQuantite;
+
+        // Sauvegarder le panier mis à jour dans le localStorage
+        localStorage.setItem("tableau", JSON.stringify(panier));
+    }
+}
+
+// Gestionnaire d'événements pour la modification de la quantité
+section.addEventListener('input', (event) => {
+    if (event.target.classList.contains('itemQuantity')) {
+        const input = event.target;
+        const nouvelIdProduit = input.closest('.cart__item').dataset.id;
+        const nouvelleQuantite = parseInt(input.value, 10);
+        mettreAJourQuantite(nouvelIdProduit, nouvelleQuantite);
+    }
+});
+
+
 // Mise en place d'une boucle pour mettre ses données en dynamique :
 
 for (let i = 0; i < panier.length; i++) {
@@ -35,7 +85,7 @@ for (let i = 0; i < panier.length; i++) {
         .then(res => res.json())
         .then(data => {
 
-            const panierPrix = data.price;
+
 
             // Mise en place du DOM avec les bonnes information :
 
@@ -114,6 +164,7 @@ for (let i = 0; i < panier.length; i++) {
             cart__item__content__settings.appendChild(cart__item__content__settings__delete);
 
             const deleteItem = document.createElement("p");
+            deleteItem.className = "deleteItem";
             deleteItem.innerText = "Supprimer";
             cart__item__content__settings__delete.appendChild(deleteItem);
 
@@ -126,13 +177,18 @@ for (let i = 0; i < panier.length; i++) {
 
             // Calcul somme des produit et le total du prix du panier :
 
+            const panierPrix = data.price;
+
             prixTotal += panierQuantite * panierPrix;
-            console.log(prixTotal)
+            // console.log(prixTotal)
             sommePanier += panierQuantite;
+
 
         });
 
 }
+
+
 
 // Promise pour attendre la réponse des calcule du .then
 
@@ -140,6 +196,8 @@ promise.then(() => {
     spanTotalPrice.innerText = prixTotal;
     spanTotalQuantity.innerText = sommePanier;
 })
+
+
 
 
 
