@@ -20,54 +20,6 @@ let prixTotal = 0;
 
 let promise = Promise.resolve();
 
-// Fonction pour supprimer un article du panier et du localStorage
-
-function supprimerArticle(idProduit) {
-
-    // Supprimer les données du localStorage
-    const panier = JSON.parse(localStorage.getItem("tableau"));
-    const index = panier.findIndex(item => item.idProduit === idProduit);
-    if (index !== -1) {
-        panier.splice(index, 1);
-        localStorage.setItem("tableau", JSON.stringify(panier));
-    }
-}
-
-// Gestionnaire d'événements de délégation pour les boutons de suppression
-
-const section = document.querySelector("#cart__items");
-section.addEventListener('click', (event) => {
-    if (event.target.classList.contains('deleteItem')) {
-        const article = event.target.closest('.cart__item');
-        const idProduit = article.dataset.id;
-        supprimerArticle(idProduit);
-        article.remove();
-    }
-});
-
-// Fonction pour mettre à jour la quantité d'un article dans le panier
-function mettreAJourQuantite(idProduit, nouvelleQuantite) {
-    // Rechercher l'article dans le panier
-    const article = panier.find(item => item.idProduit === idProduit);
-
-    // Mettre à jour la quantité de l'article
-    if (article) {
-        article.quantiteProduit = nouvelleQuantite;
-
-        // Sauvegarder le panier mis à jour dans le localStorage
-        localStorage.setItem("tableau", JSON.stringify(panier));
-    }
-}
-
-// Gestionnaire d'événements pour la modification de la quantité
-section.addEventListener('input', (event) => {
-    if (event.target.classList.contains('itemQuantity')) {
-        const input = event.target;
-        const nouvelIdProduit = input.closest('.cart__item').dataset.id;
-        const nouvelleQuantite = parseInt(input.value, 10);
-        mettreAJourQuantite(nouvelIdProduit, nouvelleQuantite);
-    }
-});
 
 
 // Mise en place d'une boucle pour mettre ses données en dynamique :
@@ -77,6 +29,7 @@ for (let i = 0; i < panier.length; i++) {
     const panierId = panier[i].idProduit;
     const panierQuantite = panier[i].quantiteProduit;
     const panierCouleur = panier[i].couleur;
+    const produit = panier[i];
 
 
     const url = `http://localhost:3000/api/products/${panierId}`
@@ -183,9 +136,56 @@ for (let i = 0; i < panier.length; i++) {
             // console.log(prixTotal)
             sommePanier += panierQuantite;
 
+            deleteItem.addEventListener('click', () => {
 
-        });
+                // Supp du localStorage
+                for (let j in panier) {
+                    const p = panier[j]
+                    if (
+                        p.idProduit === panierId && p.couleur === panierCouleur
 
+                    )
+                        panier.splice(j, 1);
+                }
+
+                localStorage.setItem('tableau', JSON.stringify(panier));
+
+                // Supp du DOM
+
+                article.remove();
+
+                // Mise a jour sommePanier et prixTotal
+
+                sommePanier -= produit.quantiteProduit;
+                spanTotalQuantity.innerHTML = sommePanier;
+
+                prixTotal -= produit.quantiteProduit * panierPrix;
+                spanTotalPrice.innerHTML = prixTotal;
+            })
+
+            input.addEventListener('input', () => {
+                // modif LocalStorage
+                for (let p of panier) {
+                    if (
+                        p.idProduit === panierId && p.couleur === panierCouleur
+                    ) {
+                        // Mise a jour sommePanier et prixTotal
+                        const diff = p.quantiteProduit - input.value;
+                        p.quantiteProduit = Number(input.value);
+
+                        prixTotal -= diff * panierPrix;
+                        spanTotalPrice.innerHTML = prixTotal;
+
+                        sommePanier -= diff;
+                        spanTotalQuantity.innerHTML = sommePanier;
+                    }
+                    // "mod" DOM
+                    localStorage.setItem('tableau', JSON.stringify(panier));
+                    console.log(panier)
+                }
+            });
+
+        })
 }
 
 
@@ -196,16 +196,6 @@ promise.then(() => {
     spanTotalPrice.innerText = prixTotal;
     spanTotalQuantity.innerText = sommePanier;
 })
-
-
-
-
-
-
-
-
-
-
 
 
 
