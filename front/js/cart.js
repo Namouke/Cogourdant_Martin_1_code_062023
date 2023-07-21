@@ -184,10 +184,9 @@ for (let i = 0; i < panier.length; i++) {
                     console.log(panier)
                 }
             });
-
         })
-}
 
+}
 
 
 // Promise pour attendre la réponse des calcule du .then
@@ -196,6 +195,40 @@ promise.then(() => {
     spanTotalPrice.innerText = prixTotal;
     spanTotalQuantity.innerText = sommePanier;
 })
+
+// test aménagement formulaire
+
+let cart__order__form = document.querySelector(".cart__order__form");
+
+cart__order__form.addEventListener('submit', (e) => {
+    let firstName = document.getElementById("firstName");
+    let lastName = document.getElementById("lastName");
+    let address = document.getElementById("address");
+    let city = document.getElementById("city");
+    let email = document.getElementById("email");
+    let myRegex = /^[a-zA-Z-\s]+$/;
+
+    if (firstName.value == "") {
+        let firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
+        firstNameErrorMsg.innerHTML = "Ce champ est vide";
+        e.preventDefault();
+    } else if (myRegex.test(firstName.value) == false) {
+        let firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
+        firstNameErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
+        e.preventDefault();
+    }
+
+    if (lastName.value == "") {
+        let lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
+        lastNameErrorMsg.innerHTML = "Ce champ est vide";
+        e.preventDefault();
+    } else if (myRegex.test(lastName.value) == false) {
+        let lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
+        lastNameErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
+        e.preventDefault();
+    }
+})
+
 
 
 
