@@ -38,8 +38,6 @@ for (let i = 0; i < panier.length; i++) {
         .then(res => res.json())
         .then(data => {
 
-
-
             // Mise en place du DOM avec les bonnes information :
 
             // création de l'arcticle //
@@ -207,6 +205,8 @@ cart__order__form.addEventListener('submit', (e) => {
     let city = document.getElementById("city");
     let email = document.getElementById("email");
     let myRegex = /^[a-zA-Z-\s]+$/;
+    let myRegexAddress = /^[a-zA-z0-9-\s]+$/;
+    let myRegexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     if (firstName.value == "") {
         let firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
@@ -227,6 +227,38 @@ cart__order__form.addEventListener('submit', (e) => {
         lastNameErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
         e.preventDefault();
     }
+
+    if (address.value == "") {
+        let addressErrorMsg = document.getElementById("addressErrorMsg");
+        addressErrorMsg.innerHTML = "Ce champ est vide";
+        e.preventDefault();
+    } else if (myRegexAddress.test(address.value) == false) {
+        let addressErrorMsg = document.getElementById("addressErrorMsg");
+        addressErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des chiffres, des tirets et des majuscules";
+        e.preventDefault();
+    }
+
+    if (city.value == "") {
+        let cityErrorMsvideg = document.getElementById("cityErrorMsg");
+        cityErrorMsg.innerHTML = "Ce champ est vide";
+        e.preventDefault();
+    } else if (myRegex.test(city.value) == false) {
+        let cityErrorMsg = document.getElementById("cityErrorMsg");
+        cityErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
+        e.preventDefault();
+    }
+
+    if (email.value == "") {
+        let emailErrorMsg = document.getElementById("emailErrorMsg");
+        emailErrorMsg.innerHTML = "Ce champ est vide";
+        e.preventDefault();
+    } else if (myRegexEmail.test(email.value) == false) {
+        let emailErrorMsg = document.getElementById("emailErrorMsg");
+        emailErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
+        e.preventDefault();
+    }
+
+
 })
 
 
