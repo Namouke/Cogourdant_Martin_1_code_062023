@@ -204,7 +204,7 @@ cart__order__form.addEventListener('submit', (e) => {
     let address = document.getElementById("address");
     let city = document.getElementById("city");
     let email = document.getElementById("email");
-    let myRegex = /^[a-zA-Z-\s]+$/;
+    let myRegex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]+$/;
     let myRegexAddress = /^[a-zA-z0-9-\s]+$/;
     let myRegexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -254,10 +254,9 @@ cart__order__form.addEventListener('submit', (e) => {
         e.preventDefault();
     } else if (myRegexEmail.test(email.value) == false) {
         let emailErrorMsg = document.getElementById("emailErrorMsg");
-        emailErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
+        emailErrorMsg.innerHTML = "Veuillez renseigner une adresse mail valide";
         e.preventDefault();
     }
-
 
 })
 
