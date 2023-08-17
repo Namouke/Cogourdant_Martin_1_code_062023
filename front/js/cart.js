@@ -196,70 +196,74 @@ promise.then(() => {
 
 // test aménagement formulaire
 
-let cart__order__form = document.querySelector(".cart__order__form");
+// Variables Regex
+let nameRegex = /^[a-zA-Z\-çñàéèêëïîôüù ]{2,}$/;
+let adressRegex = /^[0-9a-zA-Z\s,.'-çñàéèêëïîôüù]{3,}$/;
+let emailRegex = /^[A-Za-z0-9\-\.]+@([A-Za-z0-9\-]+\.)+[A-Za-z0-9-]{2,4}$/;
+// Variables pour récupérer les id des champs de formulaire
+const firstName = document.getElementById("firstName");
+const lastName = document.getElementById("lastName");
+const address = document.getElementById("address");
+const city = document.getElementById("city");
+const email = document.getElementById("email");
 
-cart__order__form.addEventListener('submit', (e) => {
-    let firstName = document.getElementById("firstName");
-    let lastName = document.getElementById("lastName");
-    let address = document.getElementById("address");
-    let city = document.getElementById("city");
-    let email = document.getElementById("email");
-    let myRegex = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]+$/;
-    let myRegexAddress = /^[a-zA-z0-9-\s]+$/;
-    let myRegexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-    if (firstName.value == "") {
-        let firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
-        firstNameErrorMsg.innerHTML = "Ce champ est vide";
-        e.preventDefault();
-    } else if (myRegex.test(firstName.value) == false) {
-        let firstNameErrorMsg = document.getElementById("firstNameErrorMsg");
-        firstNameErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
-        e.preventDefault();
+// Validation prénom
+firstName.addEventListener("input", (event) => {
+    event.preventDefault();
+    if (nameRegex.test(firstName.value) == false || firstName.value == "") {
+        document.getElementById("firstNameErrorMsg").innerHTML =
+            "Prénom non valide";
+        return false;
+    } else {
+        document.getElementById("firstNameErrorMsg").innerHTML = "";
+        return true;
     }
+});
 
-    if (lastName.value == "") {
-        let lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
-        lastNameErrorMsg.innerHTML = "Ce champ est vide";
-        e.preventDefault();
-    } else if (myRegex.test(lastName.value) == false) {
-        let lastNameErrorMsg = document.getElementById("lastNameErrorMsg");
-        lastNameErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
-        e.preventDefault();
+// Validation nom
+lastName.addEventListener("input", (event) => {
+    event.preventDefault();
+    if (nameRegex.test(lastName.value) == false || lastName.value == "") {
+        document.getElementById("lastNameErrorMsg").innerHTML = "Nom non valide";
+        return false;
+    } else {
+        document.getElementById("lastNameErrorMsg").innerHTML = "";
+        return true;
     }
+});
 
-    if (address.value == "") {
-        let addressErrorMsg = document.getElementById("addressErrorMsg");
-        addressErrorMsg.innerHTML = "Ce champ est vide";
-        e.preventDefault();
-    } else if (myRegexAddress.test(address.value) == false) {
-        let addressErrorMsg = document.getElementById("addressErrorMsg");
-        addressErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des chiffres, des tirets et des majuscules";
-        e.preventDefault();
+// Validation adresse
+address.addEventListener("input", (event) => {
+    event.preventDefault();
+    if (adressRegex.test(address.value) == false || address.value == "") {
+        document.getElementById("addressErrorMsg").innerHTML = "Adresse non valide";
+        return false;
+    } else {
+        document.getElementById("addressErrorMsg").innerHTML = "";
+        return true;
     }
+});
 
-    if (city.value == "") {
-        let cityErrorMsvideg = document.getElementById("cityErrorMsg");
-        cityErrorMsg.innerHTML = "Ce champ est vide";
-        e.preventDefault();
-    } else if (myRegex.test(city.value) == false) {
-        let cityErrorMsg = document.getElementById("cityErrorMsg");
-        cityErrorMsg.innerHTML = "Ce champ ne peut contenir uniquement des lettres, des tirets et des majuscules";
-        e.preventDefault();
+// Validation ville
+city.addEventListener("input", (event) => {
+    event.preventDefault();
+    if (nameRegex.test(city.value) == false || city.value == "") {
+        document.getElementById("cityErrorMsg").innerHTML = "Ville non valide";
+        return false;
+    } else {
+        document.getElementById("cityErrorMsg").innerHTML = "";
+        return true;
     }
+});
 
-    if (email.value == "") {
-        let emailErrorMsg = document.getElementById("emailErrorMsg");
-        emailErrorMsg.innerHTML = "Ce champ est vide";
-        e.preventDefault();
-    } else if (myRegexEmail.test(email.value) == false) {
-        let emailErrorMsg = document.getElementById("emailErrorMsg");
-        emailErrorMsg.innerHTML = "Veuillez renseigner une adresse mail valide";
-        e.preventDefault();
+// Validation email
+email.addEventListener("input", (event) => {
+    event.preventDefault();
+    if (emailRegex.test(email.value) == false || email.value == "") {
+        document.getElementById("emailErrorMsg").innerHTML = "Email non valide";
+        return false;
+    } else {
+        document.getElementById("emailErrorMsg").innerHTML = "";
+        return true;
     }
-
-})
-
-
-
-
+});
