@@ -2,6 +2,8 @@
 // Recupération des informations du localstorage :
 const panier = JSON.parse(localStorage.getItem("tableau"));
 
+
+
 // Mise en place de l'affichage des total de la page cart.html
 
 const totalQuantity = document.querySelector("#totalQuantity");
@@ -194,6 +196,8 @@ promise.then(() => {
     spanTotalQuantity.innerText = sommePanier;
 })
 
+
+
 // test aménagement formulaire
 
 // Variables Regex
@@ -265,5 +269,69 @@ email.addEventListener("input", (event) => {
     } else {
         document.getElementById("emailErrorMsg").innerHTML = "";
         return true;
+    }
+});
+
+
+let order = document.getElementById("order");
+order.addEventListener("click", (e) => {
+    e.preventDefault();
+    let contact = {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        address: address.value,
+        city: city.value,
+        email: email.value,
+    };
+    console.log(contact);
+
+    if (
+        firstName.value === "" ||
+        lastName.value === "" ||
+        address.value === "" ||
+        city.value === "" ||
+        email.value === ""
+    ) {
+        alert("Vous devez renseigner vos coordonnées pour passer la commande !");
+    } else if (
+        nameRegex.test(firstName.value) == false ||
+        nameRegex.test(lastName.value) == false ||
+        adressRegex.test(address.value) == false ||
+        nameRegex.test(city.value) == false ||
+        emailRegex.test(email.value) == false
+    ) {
+        alert("Merci de renseigner correctement vos coordonnées !");
+    } else {
+        let products = [];
+        panier.forEach((order) => {
+            products.push(order.idProduit);
+            console.log(order);
+        });
+        console.log(products);
+        console.log(panier);
+
+
+        let pageOrder = { contact, products };
+
+        // Appel à l'api order pour envoyer les tableaux
+        fetch("http://localhost:3000/api/products/order", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(pageOrder),
+        })
+            .then((res) => {
+                return res.json();
+            })
+            .then((confirm) => {
+                window.location.href = "./confirmation.html?orderId=" + confirm.orderId;
+                localStorage.clear();
+                console.log(confirm)
+            })
+            .catch((error) => {
+                console.log("une erreur est survenue");
+            });
     }
 });
