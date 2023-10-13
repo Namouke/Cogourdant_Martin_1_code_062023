@@ -44,7 +44,8 @@ fetch(url) // Adresse donner par la documentation de Bilal
       // console.log(a)
 
       // Ce console.log nous permet de vérifier que nos éléments sont bien à la bonne place.
-      // 0 à 30 % 
+
+      // 0 à 30 % des étapes clefs du projet.
     }
   });
 

@@ -40,7 +40,7 @@ for (let i = 0; i < panier.length; i++) {
         .then(res => res.json())
         .then(data => {
 
-            // Mise en place du DOM avec les bonnes information :
+            // Mise en place du DOM avec les bonnes informations :
 
             // création de l'arcticle //
             const article = document.createElement("article");
@@ -136,6 +136,12 @@ for (let i = 0; i < panier.length; i++) {
             // console.log(prixTotal)
             sommePanier += panierQuantite;
 
+            // 65% à 75% des étapes clefs du projet.
+
+
+
+            // Modification et supression de produits dans le panier :
+
             deleteItem.addEventListener('click', () => {
 
                 // Supp du localStorage
@@ -196,9 +202,10 @@ promise.then(() => {
     spanTotalQuantity.innerText = sommePanier;
 })
 
+// 75% à 85% des étapes clefs du projet.
 
 
-// test aménagement formulaire
+// Formulaire
 
 // Variables Regex
 let nameRegex = /^[a-zA-Z\-çñàéèêëïîôüù ]{2,}$/;
@@ -335,3 +342,5 @@ order.addEventListener("click", (e) => {
             });
     }
 });
+
+// 85% a 90% des étapes clefs du projet.

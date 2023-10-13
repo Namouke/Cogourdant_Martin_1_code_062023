@@ -3,14 +3,16 @@
 
 const productId = new URL(location.href).searchParams.get("id");
 
-const url = `http://localhost:3000/api/products/${productId}`;
+const url = `http://localhost:3000/api/products/${productId}`; // récupération des données du produit séléctionné.
 
 fetch(url)
     .then(res => res.json())
     .then(dataId => {
 
         let myDataId = dataId;
-        console.log(myDataId)
+        // console.log(myDataId)
+
+        // Modification et incorporation des elements dans l'HTML : 
 
         const imageKanap = document.querySelector(".item__img");
         const imgId = document.createElement("img");
@@ -44,7 +46,7 @@ fetch(url)
             optionKanap.appendChild(optionColors);
         }
 
-        // 30 à 55%
+        // 30 à 55% des étapes clefs du projet.
 
         // Envoyer les produits de la page product.html dans un localstorage
 
@@ -58,6 +60,10 @@ fetch(url)
                 couleur: colors.value,
             };
 
+            if (quantiteProduit.value == 0 ||
+                couleur.value == null) {
+                alert("Vous devez corectement renseigner vos coordonnées.")
+            }
 
             // Création d'un tableau pour ranger tout les ajouts au panier 
 
@@ -65,7 +71,6 @@ fetch(url)
                 localStorage.getItem("tableau") === null
             ) {
                 localStorage.setItem("tableau", JSON.stringify([]));
-
             }
 
             // Ajout des produits dans mon tableau :
@@ -103,7 +108,9 @@ fetch(url)
 
             // produit.push()
 
-            // Ajouter un élément dans un tableau
+            // Ajouter un élément dans un tableau 
+
+            // 55% à 65% des étapes clefs du projet.
 
 
         });
